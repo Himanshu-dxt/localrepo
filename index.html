@@ -1,1 +1,76 @@
-<p>another test</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Minute Countdown</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        #countdown {
+            font-size: 72px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+        }
+        #start-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #e6e6e6;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.2s ease-in-out;
+        }
+        #start-button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown">02:00</div><br>
+    <button id="start-button">Start Countdown</button>
+    <script>
+         const countdownEl = document.getElementById('countdown');
+        const startButton = document.getElementById('start-button');
+
+        let minutes = 2;
+        let seconds = 0;
+        let intervalId;
+
+        function updateCountdown() {
+            seconds--;
+            if (seconds < 0) {
+                minutes--;
+                seconds = 59;
+            }
+
+            if (minutes < 0) {
+                clearInterval(intervalId);
+                countdownEl.textContent = "Time's up!";
+            } else {
+                countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        startButton.addEventListener('click', function() {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            minutes = 2;
+            seconds = 0;
+            intervalId = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>
